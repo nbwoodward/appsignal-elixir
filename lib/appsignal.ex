@@ -41,6 +41,7 @@ defmodule Appsignal do
     children = [
       worker(Appsignal.Transaction.Receiver, [], restart: :permanent),
       worker(Appsignal.Transaction.ETS, [], restart: :permanent),
+      worker(Appsignal.Span.Registry, [], restart: :permanent),
       worker(Appsignal.Probes, [])
     ]
 
