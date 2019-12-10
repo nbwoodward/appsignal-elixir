@@ -80,6 +80,12 @@ defmodule Appsignal.Span do
     span
   end
 
+  def set_error(%Span{reference: reference} = span, error, stacktrace) do
+    {name, message} = Appsignal.Error.metadata(error)
+    :ok = Nif.set_span_error(reference, name, message, Exception.format_stacktrace(stacktrace))
+    span
+  end
+
   def close() do
     Dictionary.lookup() |> close()
   end

@@ -47,4 +47,16 @@ defmodule AppsignalSpanTest do
       assert Span.set_namespace(span, "test") == span
     end
   end
+
+  describe ".set_error/2" do
+    test "returns the span", %{span: span} do
+      try do
+        raise "Exception!"
+      catch
+        :error, error ->
+          backtrace = System.stacktrace()
+          assert Span.set_error(span, error, backtrace) == span
+      end
+    end
+  end
 end
