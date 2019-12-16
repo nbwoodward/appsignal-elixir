@@ -2,6 +2,7 @@ branches:
   only:
   - master
   - develop
+  - upgrade_decorator
 language: elixir
 elixir:
   - 1.3.4
